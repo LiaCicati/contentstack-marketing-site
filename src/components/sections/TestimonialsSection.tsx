@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { TestimonialsSection as TestimonialsData } from "@/types/contentstack";
+import SectionHeading from "@/components/shared/SectionHeading";
 
 interface Props {
   data: TestimonialsData;
@@ -9,11 +10,10 @@ export default function TestimonialsSection({ data }: Props) {
   return (
     <section className="px-6 py-20 bg-gray-50">
       <div className="mx-auto max-w-6xl">
-        {data.heading && (
-          <h2 className="text-3xl font-bold text-gray-900 text-center mb-14">
-            {data.heading}
-          </h2>
-        )}
+        <SectionHeading
+          data={data.section_header}
+          headingClassName="text-3xl font-bold text-gray-900 mb-14"
+        />
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {data.testimonial_entries.map((t) => (

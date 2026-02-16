@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { HeroSection as HeroData } from "@/types/contentstack";
+import CtaButton from "@/components/shared/CtaButton";
 
 interface Props {
   data: HeroData;
@@ -39,16 +39,12 @@ export default function HeroSection({ data }: Props) {
           </p>
         )}
 
-        {data.cta?.label && data.cta?.url?.href && (
-          <div className="mt-10">
-            <Link
-              href={data.cta.url.href}
-              className="rounded-lg bg-brand-600 px-6 py-3 text-base font-semibold text-white shadow-sm hover:bg-brand-700 transition-colors"
-            >
-              {data.cta.label}
-            </Link>
-          </div>
-        )}
+        <div className="mt-10">
+          <CtaButton
+            data={data.cta}
+            className="rounded-lg bg-brand-600 px-6 py-3 text-base font-semibold text-white shadow-sm hover:bg-brand-700 transition-colors"
+          />
+        </div>
       </div>
     </section>
   );

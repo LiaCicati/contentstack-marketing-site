@@ -50,6 +50,22 @@ export interface ServiceCard {
 }
 
 // ─────────────────────────────────────────────────────────────
+// Global Fields — shared across multiple sections
+// ─────────────────────────────────────────────────────────────
+
+/** Matches the section_header global field */
+export interface SectionHeader {
+  heading?: string;
+  subheading?: string;
+}
+
+/** Matches the cta_button global field */
+export interface CtaButton {
+  label?: string;
+  url?: CmsLink;
+}
+
+// ─────────────────────────────────────────────────────────────
 // Page — Modular Blocks (Section types)
 // ─────────────────────────────────────────────────────────────
 
@@ -57,10 +73,7 @@ export interface HeroSection {
   headline: string;
   sub_headline?: string;
   background_image?: CmsAsset;
-  cta?: {
-    label?: string;
-    url?: CmsLink;
-  };
+  cta?: CtaButton;
 }
 
 export interface Feature {
@@ -70,43 +83,35 @@ export interface Feature {
 }
 
 export interface FeatureGridSection {
-  heading?: string;
-  subheading?: string;
+  section_header?: SectionHeader;
   features: Feature[];
 }
 
 export interface CtaBannerSection {
-  heading: string;
+  section_header?: SectionHeader;
   body_text?: string;
-  primary_button?: {
-    label?: string;
-    url?: CmsLink;
-  };
-  secondary_button?: {
-    label?: string;
-    url?: CmsLink;
-  } | null;
+  primary_cta?: CtaButton;
+  secondary_cta?: CtaButton;
 }
 
 export interface TestimonialsSection {
-  heading?: string;
+  section_header?: SectionHeader;
   /** After .includeReference() these are resolved Testimonial objects */
   testimonial_entries: Testimonial[];
 }
 
 export interface RichTextBlockSection {
-  heading?: string;
+  section_header?: SectionHeader;
   body: Record<string, unknown>; // Contentstack JSON RTE
 }
 
 export interface LogoStripSection {
-  heading?: string;
+  section_header?: SectionHeader;
   logos: CmsAsset[];
 }
 
 export interface ServiceCardsSection {
-  heading?: string;
-  subheading?: string;
+  section_header?: SectionHeader;
   /** After .includeReference() these are resolved ServiceCard objects */
   cards: ServiceCard[];
 }

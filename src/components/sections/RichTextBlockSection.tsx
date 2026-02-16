@@ -1,4 +1,5 @@
 import type { RichTextBlockSection as RichTextData } from "@/types/contentstack";
+import SectionHeading from "@/components/shared/SectionHeading";
 
 interface Props {
   data: RichTextData;
@@ -40,9 +41,10 @@ export default function RichTextBlockSection({ data }: Props) {
   return (
     <section className="px-6 py-20 bg-white">
       <div className="mx-auto max-w-3xl">
-        {data.heading && (
-          <h2 className="text-3xl font-bold text-gray-900">{data.heading}</h2>
-        )}
+        <SectionHeading
+          data={data.section_header}
+          center={false}
+        />
         {data.body && renderRteNode(data.body as Record<string, unknown>, 0)}
       </div>
     </section>

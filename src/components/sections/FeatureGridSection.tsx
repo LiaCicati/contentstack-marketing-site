@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { FeatureGridSection as FeatureGridData } from "@/types/contentstack";
+import SectionHeading from "@/components/shared/SectionHeading";
 
 interface Props {
   data: FeatureGridData;
@@ -9,16 +10,7 @@ export default function FeatureGridSection({ data }: Props) {
   return (
     <section className="px-6 py-20 bg-white">
       <div className="mx-auto max-w-6xl">
-        {data.heading && (
-          <h2 className="text-3xl font-bold text-gray-900 text-center">
-            {data.heading}
-          </h2>
-        )}
-        {data.subheading && (
-          <p className="mt-4 text-lg text-gray-600 text-center max-w-2xl mx-auto">
-            {data.subheading}
-          </p>
-        )}
+        <SectionHeading data={data.section_header} />
 
         <div className="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
           {data.features.map((feature, i) => (
