@@ -1,0 +1,46 @@
+{
+  "_content_type_uid": "page",
+  "uid": "blt_page_solutions_startups",
+  "title": "Startup Solutions",
+  "url": "/solutions/startups",
+  "seo": {
+    "meta_title": "Startup Solutions – Acme Platform",
+    "meta_description": "Move fast without breaking content. Acme Platform for startups.",
+    "og_image": null
+  },
+  "sections": [
+    {
+      "hero": {
+        "headline": "Move fast without breaking content",
+        "sub_headline": "A generous free tier, instant API access, and SDKs in every language — so your team can ship day one.",
+        "background_image": null,
+        "cta": {
+          "label": "Start for Free",
+          "url": { "title": "Start for Free", "href": "/pricing" }
+        }
+      }
+    },
+    {
+      "feature_grid": {
+        "heading": "Built for speed",
+        "subheading": null,
+        "features": [
+          { "title": "5-Minute Setup", "description": "Create a stack, define your first content type, and fetch content via API — all in under five minutes.", "icon": null },
+          { "title": "Generous Free Tier", "description": "Up to 5 users, 5,000 entries, and 1TB bandwidth per month — enough for most startups well past Series A.", "icon": null },
+          { "title": "Framework Agnostic", "description": "Official SDKs for JavaScript, Python, Ruby, Java, and .NET. Starters for Next.js, Nuxt, Gatsby, and Astro.", "icon": null }
+        ]
+      }
+    },
+    {
+      "cta_banner": {
+        "heading": "Get started in minutes",
+        "body_text": "No credit card required. No sales call needed.",
+        "primary_button": {
+          "label": "Create Free Account",
+          "url": { "title": "Create Free Account", "href": "/pricing" }
+        },
+        "secondary_button": null
+      }
+    }
+  ]
+}

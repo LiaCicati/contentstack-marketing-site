@@ -1,0 +1,44 @@
+{
+  "_content_type_uid": "page",
+  "uid": "blt_page_pricing",
+  "title": "Pricing",
+  "url": "/pricing",
+  "seo": {
+    "meta_title": "Pricing – Acme Platform",
+    "meta_description": "Transparent pricing for teams of every size. Start free, scale as you grow.",
+    "og_image": null
+  },
+  "sections": [
+    {
+      "hero": {
+        "headline": "Simple, transparent pricing",
+        "sub_headline": "Start free. Upgrade when you're ready. No surprise invoices.",
+        "background_image": null,
+        "cta": null
+      }
+    },
+    {
+      "feature_grid": {
+        "heading": "What's included in every plan",
+        "subheading": null,
+        "features": [
+          { "title": "Unlimited Content Types", "description": "Model your content without artificial limits on types, fields, or depth.", "icon": null },
+          { "title": "Global CDN", "description": "All plans include multi-region content delivery with automatic SSL.", "icon": null },
+          { "title": "REST & GraphQL APIs", "description": "Choose the API style that fits your stack. Both are fully supported.", "icon": null },
+          { "title": "Community Support", "description": "Access to documentation, community forums, and example projects.", "icon": null }
+        ]
+      }
+    },
+    {
+      "cta_banner": {
+        "heading": "Need a custom plan?",
+        "body_text": "Enterprise plans include SSO, audit logs, SLA, and dedicated support. Let's design a plan that fits.",
+        "primary_button": {
+          "label": "Contact Sales",
+          "url": { "title": "Contact Sales", "href": "/contact" }
+        },
+        "secondary_button": null
+      }
+    }
+  ]
+}

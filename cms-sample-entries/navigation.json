@@ -1,0 +1,56 @@
+{
+  "_content_type_uid": "navigation",
+  "uid": "blt_nav_main",
+  "title": "Main Navigation",
+  "nav_items": [
+    {
+      "label": "Home",
+      "page_reference": [{ "uid": "blt_page_home", "_content_type_uid": "page" }],
+      "external_url": null,
+      "children": []
+    },
+    {
+      "label": "Solutions",
+      "page_reference": null,
+      "external_url": null,
+      "_comment": "Parent-only menu item — no direct link, just opens the dropdown.",
+      "children": [
+        {
+          "label": "Enterprise",
+          "page_reference": [{ "uid": "blt_page_solutions_enterprise", "_content_type_uid": "page" }],
+          "external_url": null
+        },
+        {
+          "label": "Startups",
+          "page_reference": [{ "uid": "blt_page_solutions_startups", "_content_type_uid": "page" }],
+          "external_url": null
+        }
+      ]
+    },
+    {
+      "label": "Pricing",
+      "page_reference": [{ "uid": "blt_page_pricing", "_content_type_uid": "page" }],
+      "external_url": null,
+      "children": []
+    },
+    {
+      "label": "About",
+      "page_reference": [{ "uid": "blt_page_about", "_content_type_uid": "page" }],
+      "external_url": null,
+      "children": []
+    },
+    {
+      "label": "Contact",
+      "page_reference": [{ "uid": "blt_page_contact", "_content_type_uid": "page" }],
+      "external_url": null,
+      "children": []
+    },
+    {
+      "label": "Documentation",
+      "page_reference": null,
+      "external_url": { "title": "Docs", "href": "https://docs.acmeplatform.io" },
+      "_comment": "External link — opens in a new tab.",
+      "children": []
+    }
+  ]
+}

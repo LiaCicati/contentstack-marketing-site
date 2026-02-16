@@ -1,0 +1,224 @@
+{
+  "_comment": "PAGE — The core page content type. Every marketing page (home, about, pricing, etc.) is an entry of this type. It uses a modular-blocks field ('sections') as a page builder, letting editors compose pages from reusable section types without developer involvement.",
+  "title": "Page",
+  "uid": "page",
+  "schema": [
+    {
+      "data_type": "text",
+      "display_name": "Title",
+      "uid": "title",
+      "mandatory": true,
+      "unique": false,
+      "multiple": false,
+      "field_metadata": { "description": "Page title, shown in browser tab and as H1 fallback." }
+    },
+    {
+      "data_type": "text",
+      "display_name": "URL",
+      "uid": "url",
+      "mandatory": true,
+      "unique": true,
+      "multiple": false,
+      "field_metadata": {
+        "description": "The page slug, e.g. '/about' or '/solutions/enterprise'. Must start with '/'."
+      }
+    },
+    {
+      "data_type": "group",
+      "display_name": "SEO",
+      "uid": "seo",
+      "multiple": false,
+      "field_metadata": { "description": "Search engine optimization metadata." },
+      "schema": [
+        {
+          "data_type": "text",
+          "display_name": "Meta Title",
+          "uid": "meta_title",
+          "mandatory": false,
+          "multiple": false
+        },
+        {
+          "data_type": "text",
+          "display_name": "Meta Description",
+          "uid": "meta_description",
+          "mandatory": false,
+          "multiple": false,
+          "field_metadata": { "multiline": true }
+        },
+        {
+          "data_type": "file",
+          "display_name": "Open Graph Image",
+          "uid": "og_image",
+          "mandatory": false,
+          "multiple": false
+        }
+      ]
+    },
+    {
+      "data_type": "blocks",
+      "display_name": "Page Sections",
+      "uid": "sections",
+      "multiple": true,
+      "field_metadata": {
+        "description": "Modular page builder. Add, reorder, and configure sections to compose the page layout."
+      },
+      "blocks": [
+        {
+          "title": "Hero Section",
+          "uid": "hero",
+          "schema": [
+            {
+              "data_type": "text",
+              "display_name": "Headline",
+              "uid": "headline",
+              "mandatory": true,
+              "multiple": false
+            },
+            {
+              "data_type": "text",
+              "display_name": "Sub-headline",
+              "uid": "sub_headline",
+              "mandatory": false,
+              "multiple": false,
+              "field_metadata": { "multiline": true }
+            },
+            {
+              "data_type": "file",
+              "display_name": "Background Image",
+              "uid": "background_image",
+              "mandatory": false,
+              "multiple": false
+            },
+            {
+              "data_type": "group",
+              "display_name": "CTA Button",
+              "uid": "cta",
+              "multiple": false,
+              "schema": [
+                { "data_type": "text", "display_name": "Label", "uid": "label", "mandatory": false, "multiple": false },
+                { "data_type": "link", "display_name": "URL", "uid": "url", "mandatory": false, "multiple": false }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Feature Grid",
+          "uid": "feature_grid",
+          "schema": [
+            {
+              "data_type": "text",
+              "display_name": "Heading",
+              "uid": "heading",
+              "mandatory": false,
+              "multiple": false
+            },
+            {
+              "data_type": "text",
+              "display_name": "Subheading",
+              "uid": "subheading",
+              "mandatory": false,
+              "multiple": false,
+              "field_metadata": { "multiline": true }
+            },
+            {
+              "data_type": "group",
+              "display_name": "Features",
+              "uid": "features",
+              "multiple": true,
+              "schema": [
+                { "data_type": "text", "display_name": "Title", "uid": "title", "mandatory": true, "multiple": false },
+                { "data_type": "text", "display_name": "Description", "uid": "description", "mandatory": false, "multiple": false, "field_metadata": { "multiline": true } },
+                { "data_type": "file", "display_name": "Icon", "uid": "icon", "mandatory": false, "multiple": false }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "CTA Banner",
+          "uid": "cta_banner",
+          "schema": [
+            { "data_type": "text", "display_name": "Heading", "uid": "heading", "mandatory": true, "multiple": false },
+            { "data_type": "text", "display_name": "Body Text", "uid": "body_text", "mandatory": false, "multiple": false, "field_metadata": { "multiline": true } },
+            {
+              "data_type": "group",
+              "display_name": "Primary Button",
+              "uid": "primary_button",
+              "multiple": false,
+              "schema": [
+                { "data_type": "text", "display_name": "Label", "uid": "label", "mandatory": false, "multiple": false },
+                { "data_type": "link", "display_name": "URL", "uid": "url", "mandatory": false, "multiple": false }
+              ]
+            },
+            {
+              "data_type": "group",
+              "display_name": "Secondary Button",
+              "uid": "secondary_button",
+              "multiple": false,
+              "schema": [
+                { "data_type": "text", "display_name": "Label", "uid": "label", "mandatory": false, "multiple": false },
+                { "data_type": "link", "display_name": "URL", "uid": "url", "mandatory": false, "multiple": false }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Testimonials",
+          "uid": "testimonials",
+          "schema": [
+            { "data_type": "text", "display_name": "Heading", "uid": "heading", "mandatory": false, "multiple": false },
+            {
+              "data_type": "reference",
+              "display_name": "Testimonial Entries",
+              "uid": "testimonial_entries",
+              "reference_to": ["testimonial"],
+              "field_metadata": { "ref_multiple": false },
+              "mandatory": false,
+              "multiple": true
+            }
+          ]
+        },
+        {
+          "title": "Rich Text Block",
+          "uid": "rich_text_block",
+          "schema": [
+            { "data_type": "text", "display_name": "Heading", "uid": "heading", "mandatory": false, "multiple": false },
+            {
+              "data_type": "json",
+              "display_name": "Body",
+              "uid": "body",
+              "mandatory": false,
+              "multiple": false,
+              "field_metadata": {
+                "allow_json_rte": true,
+                "rich_text_type": "advanced",
+                "description": "Full rich text editor with embedded assets and entries."
+              }
+            }
+          ]
+        },
+        {
+          "title": "Logo Strip",
+          "uid": "logo_strip",
+          "schema": [
+            { "data_type": "text", "display_name": "Heading", "uid": "heading", "mandatory": false, "multiple": false },
+            {
+              "data_type": "file",
+              "display_name": "Logos",
+              "uid": "logos",
+              "mandatory": false,
+              "multiple": true
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "options": {
+    "is_page": true,
+    "singleton": false,
+    "title": "title",
+    "url_pattern": "/:url",
+    "url_prefix": "/"
+  },
+  "description": "Generic marketing page with modular section-based page builder. Supports hero, feature grids, CTAs, testimonials, rich text, and logo strips."
+}

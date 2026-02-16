@@ -1,0 +1,70 @@
+{
+  "_comment": "SITE SETTINGS — Singleton for global site configuration. Stores the company logo, footer text, social links, and the reference to the navigation entry. Keeps global chrome separate from page content so editors can update footer or branding without touching individual pages.",
+  "title": "Site Settings",
+  "uid": "site_settings",
+  "schema": [
+    {
+      "data_type": "text",
+      "display_name": "Title",
+      "uid": "title",
+      "mandatory": true,
+      "unique": true,
+      "multiple": false,
+      "field_metadata": { "description": "Internal label, e.g. 'Global Settings'" }
+    },
+    {
+      "data_type": "text",
+      "display_name": "Site Name",
+      "uid": "site_name",
+      "mandatory": true,
+      "multiple": false
+    },
+    {
+      "data_type": "file",
+      "display_name": "Logo",
+      "uid": "logo",
+      "mandatory": false,
+      "multiple": false
+    },
+    {
+      "data_type": "reference",
+      "display_name": "Main Navigation",
+      "uid": "main_navigation",
+      "reference_to": ["navigation"],
+      "field_metadata": { "ref_multiple": false },
+      "mandatory": false,
+      "multiple": false
+    },
+    {
+      "data_type": "group",
+      "display_name": "Footer",
+      "uid": "footer",
+      "multiple": false,
+      "schema": [
+        {
+          "data_type": "text",
+          "display_name": "Copyright Text",
+          "uid": "copyright_text",
+          "mandatory": false,
+          "multiple": false
+        },
+        {
+          "data_type": "group",
+          "display_name": "Social Links",
+          "uid": "social_links",
+          "multiple": true,
+          "schema": [
+            { "data_type": "text", "display_name": "Platform", "uid": "platform", "mandatory": true, "multiple": false },
+            { "data_type": "link", "display_name": "URL", "uid": "url", "mandatory": true, "multiple": false }
+          ]
+        }
+      ]
+    }
+  ],
+  "options": {
+    "is_page": false,
+    "singleton": true,
+    "title": "title"
+  },
+  "description": "Global site settings — logo, company name, navigation reference, and footer configuration."
+}

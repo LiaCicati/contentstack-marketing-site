@@ -1,0 +1,47 @@
+{
+  "_content_type_uid": "page",
+  "uid": "blt_page_solutions_enterprise",
+  "title": "Enterprise Solutions",
+  "url": "/solutions/enterprise",
+  "seo": {
+    "meta_title": "Enterprise Solutions – Acme Platform",
+    "meta_description": "See how Acme Platform meets the needs of large-scale enterprise content operations.",
+    "og_image": null
+  },
+  "sections": [
+    {
+      "hero": {
+        "headline": "Content infrastructure for the enterprise",
+        "sub_headline": "SSO, audit logs, SLA-backed uptime, and multi-region data residency — all built in, not bolted on.",
+        "background_image": null,
+        "cta": {
+          "label": "Request a Demo",
+          "url": { "title": "Request a Demo", "href": "/contact" }
+        }
+      }
+    },
+    {
+      "feature_grid": {
+        "heading": "Enterprise-grade by default",
+        "subheading": "Security and compliance features that satisfy InfoSec teams without slowing down content teams.",
+        "features": [
+          { "title": "SSO & SCIM Provisioning", "description": "SAML 2.0 and OIDC single sign-on with automatic user provisioning and de-provisioning via SCIM.", "icon": null },
+          { "title": "Audit Trail", "description": "Complete, immutable log of every content change, publish event, and permission modification.", "icon": null },
+          { "title": "Data Residency", "description": "Choose where your content data lives — US, EU, or APAC — to meet regional compliance requirements.", "icon": null },
+          { "title": "99.99% SLA", "description": "Backed by a financially-guaranteed uptime SLA with dedicated incident response.", "icon": null }
+        ]
+      }
+    },
+    {
+      "cta_banner": {
+        "heading": "Let's talk about your requirements",
+        "body_text": "Our solutions engineers will work with your team to design a content architecture that fits your scale.",
+        "primary_button": {
+          "label": "Contact Sales",
+          "url": { "title": "Contact Sales", "href": "/contact" }
+        },
+        "secondary_button": null
+      }
+    }
+  ]
+}

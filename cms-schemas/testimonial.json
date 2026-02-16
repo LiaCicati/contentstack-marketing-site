@@ -1,0 +1,59 @@
+{
+  "_comment": "TESTIMONIAL — A standalone content type for customer quotes. Stored separately from pages so the same testimonial can be referenced on multiple pages (home, about, case studies) without duplication. Editors manage testimonials in one place; changes propagate everywhere they're used.",
+  "title": "Testimonial",
+  "uid": "testimonial",
+  "schema": [
+    {
+      "data_type": "text",
+      "display_name": "Title",
+      "uid": "title",
+      "mandatory": true,
+      "unique": true,
+      "multiple": false,
+      "field_metadata": { "description": "Internal label, e.g. 'Jane Doe – Acme Corp'" }
+    },
+    {
+      "data_type": "text",
+      "display_name": "Quote",
+      "uid": "quote",
+      "mandatory": true,
+      "multiple": false,
+      "field_metadata": { "multiline": true, "description": "The customer testimonial text." }
+    },
+    {
+      "data_type": "text",
+      "display_name": "Author Name",
+      "uid": "author_name",
+      "mandatory": true,
+      "multiple": false
+    },
+    {
+      "data_type": "text",
+      "display_name": "Author Title",
+      "uid": "author_title",
+      "mandatory": false,
+      "multiple": false,
+      "field_metadata": { "description": "e.g. 'VP of Engineering'" }
+    },
+    {
+      "data_type": "text",
+      "display_name": "Company",
+      "uid": "company",
+      "mandatory": false,
+      "multiple": false
+    },
+    {
+      "data_type": "file",
+      "display_name": "Avatar",
+      "uid": "avatar",
+      "mandatory": false,
+      "multiple": false
+    }
+  ],
+  "options": {
+    "is_page": false,
+    "singleton": false,
+    "title": "title"
+  },
+  "description": "Reusable customer testimonials that can be referenced on any page via the Testimonials section block."
+}

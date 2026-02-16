@@ -1,0 +1,44 @@
+[
+  {
+    "uid": "blt_testimonial_001",
+    "_content_type_uid": "testimonial",
+    "title": "Sarah Chen – Globex Corp",
+    "quote": "Switching to this platform cut our deployment cycle from two weeks to two days. The developer experience is outstanding, and our marketing team finally has the autonomy they always wanted.",
+    "author_name": "Sarah Chen",
+    "author_title": "VP of Engineering",
+    "company": "Globex Corporation",
+    "avatar": {
+      "uid": "blt_asset_avatar_001",
+      "url": "https://images.contentstack.io/v3/assets/avatars/sarah-chen.jpg",
+      "filename": "sarah-chen.jpg"
+    }
+  },
+  {
+    "uid": "blt_testimonial_002",
+    "_content_type_uid": "testimonial",
+    "title": "Marcus Rivera – Initech",
+    "quote": "We evaluated five headless CMS platforms. This one won because of its structured content modeling and the speed of its CDN. Our pages load in under 400ms globally.",
+    "author_name": "Marcus Rivera",
+    "author_title": "CTO",
+    "company": "Initech",
+    "avatar": {
+      "uid": "blt_asset_avatar_002",
+      "url": "https://images.contentstack.io/v3/assets/avatars/marcus-rivera.jpg",
+      "filename": "marcus-rivera.jpg"
+    }
+  },
+  {
+    "uid": "blt_testimonial_003",
+    "_content_type_uid": "testimonial",
+    "title": "Emily Nakamura – Stark Industries",
+    "quote": "Our content team publishes across 12 locales without touching code. The workflow approval process gives us confidence that nothing goes live without review.",
+    "author_name": "Emily Nakamura",
+    "author_title": "Director of Content",
+    "company": "Stark Industries",
+    "avatar": {
+      "uid": "blt_asset_avatar_003",
+      "url": "https://images.contentstack.io/v3/assets/avatars/emily-nakamura.jpg",
+      "filename": "emily-nakamura.jpg"
+    }
+  }
+]

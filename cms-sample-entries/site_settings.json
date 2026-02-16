@@ -1,0 +1,20 @@
+{
+  "_content_type_uid": "site_settings",
+  "uid": "blt_site_settings",
+  "title": "Global Settings",
+  "site_name": "Acme Platform",
+  "logo": {
+    "uid": "blt_asset_logo",
+    "url": "https://images.contentstack.io/v3/assets/branding/acme-logo.svg",
+    "filename": "acme-logo.svg"
+  },
+  "main_navigation": [{ "uid": "blt_nav_main", "_content_type_uid": "navigation" }],
+  "footer": {
+    "copyright_text": "\u00a9 2025 Acme Platform, Inc. All rights reserved.",
+    "social_links": [
+      { "platform": "Twitter", "url": { "title": "Twitter", "href": "https://twitter.com/acmeplatform" } },
+      { "platform": "GitHub", "url": { "title": "GitHub", "href": "https://github.com/acmeplatform" } },
+      { "platform": "LinkedIn", "url": { "title": "LinkedIn", "href": "https://linkedin.com/company/acmeplatform" } }
+    ]
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "_comment": "NAVIGATION — Singleton content type that holds the full site menu tree. Editors manage the entire nav hierarchy from a single entry. Supports two levels of nesting (parent → child) via a self-referencing 'navigation_item' group.",
+  "title": "Navigation",
+  "uid": "navigation",
+  "schema": [
+    {
+      "data_type": "text",
+      "display_name": "Title",
+      "uid": "title",
+      "field_metadata": { "description": "Internal label, e.g. 'Main Navigation'" },
+      "mandatory": true,
+      "unique": true,
+      "multiple": false
+    },
+    {
+      "data_type": "group",
+      "display_name": "Navigation Items",
+      "uid": "nav_items",
+      "multiple": true,
+      "field_metadata": {
+        "description": "Top-level menu links. Each can contain child links for dropdown menus."
+      },
+      "schema": [
+        {
+          "data_type": "text",
+          "display_name": "Label",
+          "uid": "label",
+          "mandatory": true,
+          "multiple": false,
+          "field_metadata": { "description": "Text displayed in the menu bar" }
+        },
+        {
+          "data_type": "reference",
+          "display_name": "Page Reference",
+          "uid": "page_reference",
+          "reference_to": ["page"],
+          "field_metadata": {
+            "ref_multiple": false,
+            "description": "Link to an internal page entry. The page's URL is used for routing."
+          },
+          "mandatory": false,
+          "multiple": false
+        },
+        {
+          "data_type": "link",
+          "display_name": "External URL",
+          "uid": "external_url",
+          "field_metadata": {
+            "description": "Use instead of Page Reference for external links (opens in new tab)."
+          },
+          "mandatory": false,
+          "multiple": false
+        },
+        {
+          "data_type": "group",
+          "display_name": "Children",
+          "uid": "children",
+          "multiple": true,
+          "field_metadata": {
+            "description": "Second-level dropdown items under this parent."
+          },
+          "schema": [
+            {
+              "data_type": "text",
+              "display_name": "Label",
+              "uid": "label",
+              "mandatory": true,
+              "multiple": false
+            },
+            {
+              "data_type": "reference",
+              "display_name": "Page Reference",
+              "uid": "page_reference",
+              "reference_to": ["page"],
+              "field_metadata": { "ref_multiple": false },
+              "mandatory": false,
+              "multiple": false
+            },
+            {
+              "data_type": "link",
+              "display_name": "External URL",
+              "uid": "external_url",
+              "mandatory": false,
+              "multiple": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "options": {
+    "is_page": false,
+    "singleton": true,
+    "title": "title"
+  },
+  "description": "Singleton that defines the site-wide navigation hierarchy. Supports two levels of nesting with links to internal pages or external URLs."
+}

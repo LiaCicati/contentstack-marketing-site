@@ -1,0 +1,58 @@
+{
+  "_content_type_uid": "page",
+  "uid": "blt_page_about",
+  "title": "About Us",
+  "url": "/about",
+  "seo": {
+    "meta_title": "About Acme Platform – Our Story",
+    "meta_description": "Learn about the team and mission behind Acme Platform.",
+    "og_image": null
+  },
+  "sections": [
+    {
+      "hero": {
+        "headline": "Built by engineers, for everyone",
+        "sub_headline": "We started Acme Platform because we were tired of choosing between developer flexibility and editorial usability. So we built both.",
+        "background_image": null,
+        "cta": null
+      }
+    },
+    {
+      "rich_text_block": {
+        "heading": "Our Mission",
+        "body": {
+          "type": "doc",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [{ "text": "Acme Platform exists to eliminate the friction between content teams and engineering teams. We believe structured content should be easy to model, easy to edit, and effortless to deliver at global scale." }]
+            },
+            {
+              "type": "paragraph",
+              "children": [{ "text": "Founded in 2020, we've grown from a weekend project to powering content delivery for Fortune 500 companies across 40+ countries." }]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "feature_grid": {
+        "heading": "Our values",
+        "subheading": null,
+        "features": [
+          { "title": "Developer-first, not developer-only", "description": "APIs and SDKs that engineers love, with an editorial interface that marketers actually enjoy using.", "icon": null },
+          { "title": "Structured over arbitrary", "description": "Opinionated content modeling that prevents chaos at scale. Your content architecture should outlast any redesign.", "icon": null },
+          { "title": "Performance is a feature", "description": "Every API response is served from the edge. We measure success in milliseconds, not seconds.", "icon": null }
+        ]
+      }
+    },
+    {
+      "testimonials": {
+        "heading": "Hear from our partners",
+        "testimonial_entries": [
+          { "uid": "blt_testimonial_003", "_content_type_uid": "testimonial" }
+        ]
+      }
+    }
+  ]
+}

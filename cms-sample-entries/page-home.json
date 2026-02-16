@@ -1,0 +1,90 @@
+{
+  "_content_type_uid": "page",
+  "uid": "blt_page_home",
+  "title": "Home",
+  "url": "/",
+  "seo": {
+    "meta_title": "Acme Platform – Build Faster, Scale Smarter",
+    "meta_description": "Acme Platform gives engineering and marketing teams the tools to ship content-driven websites at enterprise scale.",
+    "og_image": null
+  },
+  "sections": [
+    {
+      "hero": {
+        "headline": "Ship content-driven websites at enterprise scale",
+        "sub_headline": "Acme Platform gives your engineering team APIs they love and your marketing team the editorial freedom they need — without compromising on performance or governance.",
+        "background_image": {
+          "uid": "blt_asset_hero_bg",
+          "url": "https://images.contentstack.io/v3/assets/hero/home-bg.jpg",
+          "filename": "home-bg.jpg"
+        },
+        "cta": {
+          "label": "Start Free Trial",
+          "url": { "title": "Start Free Trial", "href": "/pricing" }
+        }
+      }
+    },
+    {
+      "logo_strip": {
+        "heading": "Trusted by industry leaders",
+        "logos": [
+          { "uid": "blt_logo_1", "url": "https://images.contentstack.io/v3/assets/logos/globex.svg", "filename": "globex.svg" },
+          { "uid": "blt_logo_2", "url": "https://images.contentstack.io/v3/assets/logos/initech.svg", "filename": "initech.svg" },
+          { "uid": "blt_logo_3", "url": "https://images.contentstack.io/v3/assets/logos/stark.svg", "filename": "stark.svg" },
+          { "uid": "blt_logo_4", "url": "https://images.contentstack.io/v3/assets/logos/umbrella.svg", "filename": "umbrella.svg" }
+        ]
+      }
+    },
+    {
+      "feature_grid": {
+        "heading": "Everything you need to deliver at scale",
+        "subheading": "From content modeling to global delivery, Acme Platform covers the full lifecycle.",
+        "features": [
+          {
+            "title": "Structured Content Modeling",
+            "description": "Define content types, relationships, and modular blocks that reflect your real domain — not a flat page builder.",
+            "icon": null
+          },
+          {
+            "title": "Global CDN Delivery",
+            "description": "Sub-100ms response times worldwide via a multi-region CDN with automatic cache invalidation on publish.",
+            "icon": null
+          },
+          {
+            "title": "Workflow & Governance",
+            "description": "Role-based access, multi-stage approval workflows, and scheduled publishing for enterprise compliance.",
+            "icon": null
+          },
+          {
+            "title": "Multi-Locale Support",
+            "description": "Manage translations with locale-level fallback, side-by-side comparison, and locale-specific publishing.",
+            "icon": null
+          }
+        ]
+      }
+    },
+    {
+      "testimonials": {
+        "heading": "What our customers say",
+        "testimonial_entries": [
+          { "uid": "blt_testimonial_001", "_content_type_uid": "testimonial" },
+          { "uid": "blt_testimonial_002", "_content_type_uid": "testimonial" }
+        ]
+      }
+    },
+    {
+      "cta_banner": {
+        "heading": "Ready to modernize your content stack?",
+        "body_text": "Join 500+ companies that ship faster with Acme Platform. No credit card required.",
+        "primary_button": {
+          "label": "Start Free Trial",
+          "url": { "title": "Start Free Trial", "href": "/pricing" }
+        },
+        "secondary_button": {
+          "label": "Talk to Sales",
+          "url": { "title": "Talk to Sales", "href": "/contact" }
+        }
+      }
+    }
+  ]
+}

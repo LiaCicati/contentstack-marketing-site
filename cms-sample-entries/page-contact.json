@@ -1,0 +1,35 @@
+{
+  "_content_type_uid": "page",
+  "uid": "blt_page_contact",
+  "title": "Contact Us",
+  "url": "/contact",
+  "seo": {
+    "meta_title": "Contact Us – Acme Platform",
+    "meta_description": "Get in touch with our team to discuss your content infrastructure needs.",
+    "og_image": null
+  },
+  "sections": [
+    {
+      "hero": {
+        "headline": "Let's talk",
+        "sub_headline": "Whether you have questions about our platform, need a demo, or want to discuss enterprise requirements — we're here to help.",
+        "background_image": null,
+        "cta": null
+      }
+    },
+    {
+      "rich_text_block": {
+        "heading": "Get in touch",
+        "body": {
+          "type": "doc",
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [{ "text": "Email us at hello@acmeplatform.io or fill out the form below. We typically respond within one business day." }]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
