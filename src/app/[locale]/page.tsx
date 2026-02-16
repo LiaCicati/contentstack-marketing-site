@@ -13,8 +13,6 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getPageByUrl, getAllPageUrls } from "@/lib/api";
 import SectionRenderer from "@/components/sections/SectionRenderer";
-import PagePreview from "@/components/PagePreview";
-import LivePreviewInit from "@/components/LivePreviewInit";
 import { isValidLocale, DEFAULT_LOCALE, LOCALES, type Locale } from "@/lib/i18n";
 
 export const revalidate = 60;
@@ -74,7 +72,6 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
 export default async function LocalePage({ params, searchParams }: PageProps) {
   const { locale: localeParam } = await params;
   const sp = await searchParams;
-  const isPreview = !!sp.live_preview;
 
   let locale: Locale;
   let url: string;
@@ -92,18 +89,5 @@ export default async function LocalePage({ params, searchParams }: PageProps) {
   const page = await getPageByUrl(url, locale, sp);
   if (!page) notFound();
 
-  return (
-    <>
-      {isPreview ? (
-        <PagePreview
-          initialSections={page.sections}
-          pageUrl={url}
-          locale={locale}
-        />
-      ) : (
-        <SectionRenderer sections={page.sections} />
-      )}
-      {isPreview && <LivePreviewInit />}
-    </>
-  );
+  return <SectionRenderer sections={page.sections} />;
 }

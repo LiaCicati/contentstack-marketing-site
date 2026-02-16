@@ -6,7 +6,6 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getPageByUrl, getLayoutData } from "@/lib/api";
 import SectionRenderer from "@/components/sections/SectionRenderer";
-import PagePreview from "@/components/PagePreview";
 import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
 import LivePreviewInit from "@/components/LivePreviewInit";
@@ -31,8 +30,6 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
 
 export default async function HomePage({ searchParams }: PageProps) {
   const sp = await searchParams;
-  const isPreview = !!sp.live_preview;
-
   const [page, { settings, navigation }] = await Promise.all([
     getPageByUrl("/", DEFAULT_LOCALE, sp),
     getLayoutData(DEFAULT_LOCALE, sp),
@@ -52,18 +49,10 @@ export default async function HomePage({ searchParams }: PageProps) {
           />
         )}
         <main className="flex-1">
-          {isPreview ? (
-            <PagePreview
-              initialSections={page.sections}
-              pageUrl="/"
-              locale={DEFAULT_LOCALE}
-            />
-          ) : (
-            <SectionRenderer sections={page.sections} />
-          )}
+          <SectionRenderer sections={page.sections} />
         </main>
         {settings && <Footer settings={settings} />}
-        {isPreview && <LivePreviewInit />}
+        <LivePreviewInit />
       </body>
     </html>
   );
