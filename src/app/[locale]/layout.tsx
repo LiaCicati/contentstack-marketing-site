@@ -14,7 +14,6 @@
 import { getLayoutData } from "@/lib/api";
 import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
-import LivePreviewInit from "@/components/LivePreviewInit";
 import { isValidLocale, DEFAULT_LOCALE, type Locale } from "@/lib/i18n";
 
 export const revalidate = 60;
@@ -47,7 +46,6 @@ export default async function LocaleLayout({ children, params }: Props) {
         <main className="flex-1">{children}</main>
 
         {settings && <Footer settings={settings} />}
-        <LivePreviewInit />
       </body>
     </html>
   );

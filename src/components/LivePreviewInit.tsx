@@ -5,18 +5,14 @@ import ContentstackLivePreview from "@contentstack/live-preview-utils";
 
 /**
  * Client component that initialises the Contentstack Live
- * Preview SDK. Renders nothing — just sets up the
- * communication channel between Contentstack UI and the
- * preview iframe.
- *
- * In SSR mode the SDK reloads the page on every content
- * change so the server component re-fetches fresh data.
+ * Preview SDK in CSR mode. Content updates happen in-place
+ * via onEntryChange (no page reload).
  */
 export default function LivePreviewInit() {
   useEffect(() => {
     ContentstackLivePreview.init({
       enable: true,
-      ssr: true, // SSR mode — triggers full page reload on edit
+      ssr: false, // CSR mode — in-place updates via onEntryChange
       editButton: {
         enable: true,
         position: "top-right",
