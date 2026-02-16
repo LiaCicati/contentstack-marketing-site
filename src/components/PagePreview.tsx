@@ -47,12 +47,7 @@ export default function PagePreview({ initialSections, pageUrl, locale }: Props)
       const contentTypeUid = getUrlParam("content_type_uid") || "page";
       const entryUid = getUrlParam("entry_uid");
 
-      console.log("[PagePreview] onEntryChange fired!", { hash, contentTypeUid, entryUid, pageUrl, locale });
-
-      if (!hash) {
-        console.log("[PagePreview] No hash, skipping fetch");
-        return;
-      }
+      if (!hash) return;
 
       // Build query params for the server-side preview route
       const params = new URLSearchParams();
@@ -69,8 +64,6 @@ export default function PagePreview({ initialSections, pageUrl, locale }: Props)
       }
 
       const data = await res.json();
-      console.log("[PagePreview] Got sections:", data.page?.sections?.length ?? 0);
-
       if (data.page?.sections) {
         setSections(data.page.sections);
       }
@@ -80,13 +73,8 @@ export default function PagePreview({ initialSections, pageUrl, locale }: Props)
   }, [pageUrl, locale]);
 
   useEffect(() => {
-    console.log("[PagePreview] Mounting, initializing Live Preview...");
     initLivePreview();
-    const uid = onEntryChange(fetchPage);
-    console.log("[PagePreview] Subscribed to onEntryChange, uid:", uid);
-    return () => {
-      console.log("[PagePreview] Unmounting");
-    };
+    onEntryChange(fetchPage);
   }, [fetchPage]);
 
   return <SectionRenderer sections={sections} />;
