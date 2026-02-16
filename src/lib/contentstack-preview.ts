@@ -1,44 +1,21 @@
 "use client";
 
 /**
- * Client-side Contentstack SDK + Live Preview
+ * Client-side Live Preview Integration
  * ──────────────────────────────────────────────────────────
- * Used ONLY inside the Live Preview iframe. Creates a Stack
- * instance on the client and passes it to the Live Preview
- * Utils SDK so it can mutate the live_preview hash in-place
- * when content changes.
+ * The live-preview-utils SDK expects a `stackSdk` object with
+ * a mutable `live_preview` property at the top level. When
+ * content changes, it writes the preview hash, content type
+ * UID, and entry UID into `stackSdk.live_preview`.
  *
- * This module is never imported on the server or in
- * production — it's only pulled in by PagePreview and
- * LivePreviewInit (both "use client" components).
+ * We create a plain object that satisfies this contract, then
+ * read the mutated values when onEntryChange fires to pass
+ * them to our /api/preview server route.
  */
 
-import contentstack, { Region } from "@contentstack/delivery-sdk";
 import ContentstackLivePreview from "@contentstack/live-preview-utils";
 
-// ── Region mappings ─────────────────────────────────────────
-
 const regionStr = process.env.NEXT_PUBLIC_CONTENTSTACK_REGION ?? "us";
-
-function resolveRegion(r: string): Region {
-  const map: Record<string, Region> = {
-    us: Region.US,
-    eu: Region.EU,
-    azure_na: Region.AZURE_NA,
-    azure_eu: Region.AZURE_EU,
-  };
-  return map[r.toLowerCase()] ?? Region.US;
-}
-
-function previewHost(r: string): string {
-  const map: Record<string, string> = {
-    us: "rest-preview.contentstack.com",
-    eu: "eu-rest-preview.contentstack.com",
-    azure_na: "azure-na-rest-preview.contentstack.com",
-    azure_eu: "azure-eu-rest-preview.contentstack.com",
-  };
-  return map[r.toLowerCase()] ?? "rest-preview.contentstack.com";
-}
 
 function appHost(r: string): string {
   const map: Record<string, string> = {
@@ -50,21 +27,21 @@ function appHost(r: string): string {
   return map[r.toLowerCase()] ?? "app.contentstack.com";
 }
 
-// ── Client-side Stack with Live Preview enabled ─────────────
+// ── Mutable stackSdk object ─────────────────────────────────
+// The live-preview-utils SDK writes preview hash and UIDs here
 
-export const previewStack = contentstack.stack({
-  apiKey: process.env.NEXT_PUBLIC_CONTENTSTACK_API_KEY!,
-  deliveryToken: process.env.NEXT_PUBLIC_CONTENTSTACK_DELIVERY_TOKEN!,
-  environment: process.env.NEXT_PUBLIC_CONTENTSTACK_ENVIRONMENT!,
-  region: resolveRegion(regionStr),
+export const stackSdkProxy = {
   live_preview: {
     enable: true,
-    preview_token: process.env.NEXT_PUBLIC_CONTENTSTACK_PREVIEW_TOKEN!,
-    host: previewHost(regionStr),
-  },
-});
+    hash: "",
+    live_preview: "",
+    content_type_uid: "",
+    entry_uid: "",
+  } as Record<string, unknown>,
+  environment: process.env.NEXT_PUBLIC_CONTENTSTACK_ENVIRONMENT!,
+};
 
-// ── Initialize Live Preview Utils with stackSdk ─────────────
+// ── Initialize Live Preview Utils ───────────────────────────
 
 let initialized = false;
 
@@ -73,8 +50,8 @@ export function initLivePreview() {
   initialized = true;
 
   ContentstackLivePreview.init({
-    // @ts-expect-error - SDK types differ but runtime is compatible
-    stackSdk: previewStack,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    stackSdk: stackSdkProxy as any,
     enable: true,
     ssr: false,
     editButton: {
@@ -91,6 +68,22 @@ export function initLivePreview() {
       port: 443,
     },
   });
+}
+
+// ── Helper to get current preview hash ──────────────────────
+
+export function getPreviewHash(): string {
+  return (stackSdkProxy.live_preview.live_preview as string) ||
+         (stackSdkProxy.live_preview.hash as string) ||
+         "";
+}
+
+export function getPreviewContentTypeUid(): string {
+  return (stackSdkProxy.live_preview.content_type_uid as string) || "";
+}
+
+export function getPreviewEntryUid(): string {
+  return (stackSdkProxy.live_preview.entry_uid as string) || "";
 }
 
 // ── Re-export onEntryChange ─────────────────────────────────
