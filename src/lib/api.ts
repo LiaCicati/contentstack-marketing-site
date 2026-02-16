@@ -2,10 +2,11 @@
  * CMS API Layer
  * ──────────────────────────────────────────────────────────
  * All Contentstack queries live here. Every function accepts
- * an optional `locale` parameter that defaults to "en-us".
+ * an optional `locale` parameter that defaults to "en-us"
+ * and an optional `searchParams` for Live Preview support.
  */
 
-import stack from "./contentstack-client";
+import stack, { createStack } from "./contentstack-client";
 import { QueryOperation } from "@contentstack/delivery-sdk";
 import type {
   Page,
@@ -14,6 +15,26 @@ import type {
 } from "@/types/contentstack";
 import { DEFAULT_LOCALE, type Locale } from "./i18n";
 
+// ── Search params type ────────────────────────────────────────
+type SearchParams = { [key: string]: string | string[] | undefined };
+
+/**
+ * Returns a stack instance configured for the current request.
+ * When searchParams contain a live_preview hash, the SDK will
+ * automatically fetch from the Preview API instead of Delivery.
+ */
+function getStack(searchParams?: SearchParams) {
+  if (searchParams && searchParams.live_preview) {
+    const s = createStack();
+    // The SDK expects LivePreviewQuery but the runtime shape from
+    // Next.js searchParams is compatible — cast to satisfy TS.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    s.livePreviewQuery(searchParams as any);
+    return s;
+  }
+  return stack;
+}
+
 // ─────────────────────────────────────────────────────────────
 // Pages
 // ─────────────────────────────────────────────────────────────
@@ -21,9 +42,11 @@ import { DEFAULT_LOCALE, type Locale } from "./i18n";
 export async function getPageByUrl(
   url: string,
   locale: Locale = DEFAULT_LOCALE,
+  searchParams?: SearchParams,
 ): Promise<Page | null> {
   try {
-    const result = await stack
+    const s = getStack(searchParams);
+    const result = await s
       .contentType("page")
       .entry()
       .locale(locale)
@@ -64,9 +87,11 @@ export async function getAllPageUrls(
 
 export async function getNavigation(
   locale: Locale = DEFAULT_LOCALE,
+  searchParams?: SearchParams,
 ): Promise<Navigation | null> {
   try {
-    const result = await stack
+    const s = getStack(searchParams);
+    const result = await s
       .contentType("navigation")
       .entry()
       .locale(locale)
@@ -90,9 +115,11 @@ export async function getNavigation(
 
 export async function getSiteSettings(
   locale: Locale = DEFAULT_LOCALE,
+  searchParams?: SearchParams,
 ): Promise<SiteSettings | null> {
   try {
-    const result = await stack
+    const s = getStack(searchParams);
+    const result = await s
       .contentType("site_settings")
       .entry()
       .locale(locale)
@@ -118,10 +145,11 @@ export interface LayoutData {
 
 export async function getLayoutData(
   locale: Locale = DEFAULT_LOCALE,
+  searchParams?: SearchParams,
 ): Promise<LayoutData> {
   const [settings, navigation] = await Promise.all([
-    getSiteSettings(locale),
-    getNavigation(locale),
+    getSiteSettings(locale, searchParams),
+    getNavigation(locale, searchParams),
   ]);
   return { settings, navigation };
 }

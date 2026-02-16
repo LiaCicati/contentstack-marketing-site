@@ -1,56 +1,90 @@
 /**
- * Contentstack SDK Client
+ * Contentstack SDK Client — Factory
  * ──────────────────────────────────────────────────────────
- * Single shared instance of the Contentstack Delivery SDK.
- * Imported by the API layer (./api.ts) — never used directly
- * in components.
+ * Creates a fresh Contentstack Delivery SDK instance per
+ * request. This is required for Live Preview because the SDK
+ * stores the preview hash internally — sharing an instance
+ * across requests would leak preview state between users.
  *
- * Environment variables are validated at startup so you get a
- * clear error message instead of a cryptic SDK failure.
+ * For normal (non-preview) rendering a shared instance is
+ * also exported for convenience (used by generateStaticParams).
  */
 
 import contentstack, { Region } from "@contentstack/delivery-sdk";
 
 // ── Validate required env vars ──────────────────────────────
 
-const apiKey = process.env.CONTENTSTACK_API_KEY;
-const deliveryToken = process.env.CONTENTSTACK_DELIVERY_TOKEN;
-const environment = process.env.CONTENTSTACK_ENVIRONMENT;
+const apiKey = process.env.NEXT_PUBLIC_CONTENTSTACK_API_KEY!;
+const deliveryToken = process.env.NEXT_PUBLIC_CONTENTSTACK_DELIVERY_TOKEN!;
+const environment = process.env.NEXT_PUBLIC_CONTENTSTACK_ENVIRONMENT!;
+const previewToken = process.env.NEXT_PUBLIC_CONTENTSTACK_PREVIEW_TOKEN ?? "";
+const regionStr = process.env.NEXT_PUBLIC_CONTENTSTACK_REGION ?? "us";
 
 if (!apiKey || !deliveryToken || !environment) {
   throw new Error(
     [
       "Missing required Contentstack environment variables.",
       "Ensure the following are set in .env.local:",
-      "  CONTENTSTACK_API_KEY",
-      "  CONTENTSTACK_DELIVERY_TOKEN",
-      "  CONTENTSTACK_ENVIRONMENT",
+      "  NEXT_PUBLIC_CONTENTSTACK_API_KEY",
+      "  NEXT_PUBLIC_CONTENTSTACK_DELIVERY_TOKEN",
+      "  NEXT_PUBLIC_CONTENTSTACK_ENVIRONMENT",
     ].join("\n"),
   );
 }
 
 // ── Map region string to SDK enum ───────────────────────────
 
-function resolveRegion(regionStr?: string): Region {
+function resolveRegion(r: string): Region {
   const map: Record<string, Region> = {
     us: Region.US,
     eu: Region.EU,
     azure_na: Region.AZURE_NA,
     azure_eu: Region.AZURE_EU,
   };
-  return map[regionStr?.toLowerCase() ?? "us"] ?? Region.US;
+  return map[r.toLowerCase()] ?? Region.US;
 }
 
-// ── Create and export the stack client ──────────────────────
+const region = resolveRegion(regionStr);
+
+// ── Preview host per region ─────────────────────────────────
+
+function previewHost(r: string): string {
+  const map: Record<string, string> = {
+    us: "rest-preview.contentstack.com",
+    eu: "eu-rest-preview.contentstack.com",
+    azure_na: "azure-na-rest-preview.contentstack.com",
+    azure_eu: "azure-eu-rest-preview.contentstack.com",
+  };
+  return map[r.toLowerCase()] ?? "rest-preview.contentstack.com";
+}
+
+// ── Factory: new stack per request (for Live Preview) ───────
+
+export function createStack() {
+  return contentstack.stack({
+    apiKey,
+    deliveryToken,
+    environment,
+    region,
+    live_preview: {
+      enable: true,
+      preview_token: previewToken,
+      host: previewHost(regionStr),
+    },
+  });
+}
+
+// ── Shared singleton (for static generation helpers) ────────
 
 const stack = contentstack.stack({
   apiKey,
   deliveryToken,
   environment,
-  region: resolveRegion(process.env.CONTENTSTACK_REGION),
-  ...(process.env.CONTENTSTACK_BRANCH && {
-    branch: process.env.CONTENTSTACK_BRANCH,
-  }),
+  region,
 });
 
 export default stack;
+
+// ── Re-export constants for client components ───────────────
+
+export { apiKey, environment, regionStr };

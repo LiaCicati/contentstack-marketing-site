@@ -19,6 +19,7 @@ export const revalidate = 60;
 
 interface PageProps {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 export async function generateStaticParams() {
@@ -44,8 +45,9 @@ export async function generateStaticParams() {
   return params;
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params, searchParams }: PageProps): Promise<Metadata> {
   const { locale: localeParam } = await params;
+  const sp = await searchParams;
 
   let locale: Locale;
   let url: string;
@@ -58,7 +60,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     url = `/${localeParam}`;
   }
 
-  const page = await getPageByUrl(url, locale);
+  const page = await getPageByUrl(url, locale, sp);
   if (!page) return {};
 
   return {
@@ -67,8 +69,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default async function LocalePage({ params }: PageProps) {
+export default async function LocalePage({ params, searchParams }: PageProps) {
   const { locale: localeParam } = await params;
+  const sp = await searchParams;
 
   let locale: Locale;
   let url: string;
@@ -83,7 +86,7 @@ export default async function LocalePage({ params }: PageProps) {
     url = `/${localeParam}`;
   }
 
-  const page = await getPageByUrl(url, locale);
+  const page = await getPageByUrl(url, locale, sp);
   if (!page) notFound();
 
   return <SectionRenderer sections={page.sections} />;
