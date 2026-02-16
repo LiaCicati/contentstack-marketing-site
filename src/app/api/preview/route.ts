@@ -37,6 +37,8 @@ export async function GET(request: NextRequest) {
       if (contentTypeUid) previewQuery.content_type_uid = contentTypeUid;
       if (entryUid) previewQuery.entry_uid = entryUid;
 
+      console.log("[/api/preview] livePreviewQuery:", JSON.stringify(previewQuery));
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       stack.livePreviewQuery(previewQuery as any);
     }
