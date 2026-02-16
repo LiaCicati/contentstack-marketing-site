@@ -6,6 +6,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "images.contentstack.io",
       },
+      {
+        protocol: "https",
+        hostname: "eu-images.contentstack.com",
+      },
     ],
   },
 };
