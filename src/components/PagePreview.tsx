@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import ContentstackLivePreview from "@contentstack/live-preview-utils";
+import { QueryOperation } from "@contentstack/delivery-sdk";
+import { previewStack, onEntryChange, initLivePreview } from "@/lib/contentstack-preview";
 import SectionRenderer from "@/components/sections/SectionRenderer";
-import type { PageSection } from "@/types/contentstack";
+import type { Page, PageSection } from "@/types/contentstack";
 
 interface Props {
   /** Initial sections from the server render */
@@ -17,25 +18,27 @@ interface Props {
 /**
  * Client wrapper around SectionRenderer that subscribes to
  * Contentstack's onEntryChange. When the editor modifies a
- * field, this component re-fetches the page via /api/preview
- * and updates the sections in-place — no page reload.
+ * field, the SDK updates the preview hash on the shared
+ * previewStack instance, then this callback re-fetches the
+ * page and React re-renders the sections in-place.
  */
 export default function PagePreview({ initialSections, pageUrl, locale }: Props) {
   const [sections, setSections] = useState<PageSection[]>(initialSections);
 
   const fetchPage = useCallback(async () => {
     try {
-      // Grab the current URL's search params (contains live_preview hash etc.)
-      const params = new URLSearchParams(window.location.search);
-      params.set("url", pageUrl);
-      params.set("locale", locale);
+      const result = await previewStack
+        .contentType("page")
+        .entry()
+        .locale(locale)
+        .includeReference("sections.testimonials.testimonial_entries")
+        .query()
+        .where("url", QueryOperation.EQUALS, pageUrl)
+        .find();
 
-      const res = await fetch(`/api/preview?${params.toString()}`);
-      if (!res.ok) return;
-
-      const data = await res.json();
-      if (data.page?.sections) {
-        setSections(data.page.sections);
+      const entries = (result.entries ?? []) as unknown as Page[];
+      if (entries[0]?.sections) {
+        setSections(entries[0].sections);
       }
     } catch (err) {
       console.error("[PagePreview] Failed to fetch preview data:", err);
@@ -43,8 +46,10 @@ export default function PagePreview({ initialSections, pageUrl, locale }: Props)
   }, [pageUrl, locale]);
 
   useEffect(() => {
+    // Ensure Live Preview SDK is initialized before subscribing
+    initLivePreview();
     // Subscribe to content changes — fires on every field edit
-    ContentstackLivePreview.onEntryChange(fetchPage);
+    onEntryChange(fetchPage);
   }, [fetchPage]);
 
   return <SectionRenderer sections={sections} />;
