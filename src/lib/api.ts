@@ -50,7 +50,10 @@ export async function getPageByUrl(
       .contentType("page")
       .entry()
       .locale(locale)
-      .includeReference("sections.testimonials.testimonial_entries")
+      .includeReference(
+        "sections.testimonials.testimonial_entries",
+        "sections.service_cards.cards",
+      )
       .query()
       .where("url", QueryOperation.EQUALS, url)
       .find();

@@ -40,6 +40,16 @@ export interface Testimonial {
 }
 
 // ─────────────────────────────────────────────────────────────
+// Service Card (reusable entry with non-localizable icon)
+// ─────────────────────────────────────────────────────────────
+export interface ServiceCard {
+  uid: string;
+  title: string;
+  description?: string;
+  icon?: CmsAsset;
+}
+
+// ─────────────────────────────────────────────────────────────
 // Page — Modular Blocks (Section types)
 // ─────────────────────────────────────────────────────────────
 
@@ -94,6 +104,13 @@ export interface LogoStripSection {
   logos: CmsAsset[];
 }
 
+export interface ServiceCardsSection {
+  heading?: string;
+  subheading?: string;
+  /** After .includeReference() these are resolved ServiceCard objects */
+  cards: ServiceCard[];
+}
+
 /**
  * A single modular block entry.
  * Exactly one key will be present — the block UID.
@@ -104,7 +121,8 @@ export type PageSection =
   | { cta_banner: CtaBannerSection }
   | { testimonials: TestimonialsSection }
   | { rich_text_block: RichTextBlockSection }
-  | { logo_strip: LogoStripSection };
+  | { logo_strip: LogoStripSection }
+  | { service_cards: ServiceCardsSection };
 
 // ─────────────────────────────────────────────────────────────
 // Page
@@ -179,6 +197,7 @@ export type SectionBlockType = keyof (
   & { testimonials: unknown }
   & { rich_text_block: unknown }
   & { logo_strip: unknown }
+  & { service_cards: unknown }
 );
 
 export function getSectionType(section: PageSection): SectionBlockType {

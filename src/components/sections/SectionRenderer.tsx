@@ -30,6 +30,7 @@ import CtaBannerSection from "./CtaBannerSection";
 import TestimonialsSection from "./TestimonialsSection";
 import RichTextBlockSection from "./RichTextBlockSection";
 import LogoStripSection from "./LogoStripSection";
+import ServiceCardsSection from "./ServiceCardsSection";
 
 // ── Block-type → Component registry ─────────────────────────
 
@@ -40,6 +41,7 @@ const SECTION_COMPONENTS: Record<string, React.ComponentType<{ data: any }>> = {
   testimonials: TestimonialsSection,
   rich_text_block: RichTextBlockSection,
   logo_strip: LogoStripSection,
+  service_cards: ServiceCardsSection,
 };
 
 // ── Renderer ─────────────────────────────────────────────────
