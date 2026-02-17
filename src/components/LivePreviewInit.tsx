@@ -21,6 +21,10 @@ const REGION_HOST: Record<string, string> = {
  */
 export default function LivePreviewInit() {
   useEffect(() => {
+    // Only initialise inside the CMS preview iframe
+    const params = new URLSearchParams(window.location.search);
+    if (!params.has("live_preview")) return;
+
     const region = (process.env.NEXT_PUBLIC_CONTENTSTACK_REGION ?? "us").toLowerCase();
 
     ContentstackLivePreview.init({
