@@ -25,7 +25,8 @@ export default function LivePreviewInit() {
 
     ContentstackLivePreview.init({
       enable: true,
-      ssr: true, // SSR mode — triggers full page reload on edit
+      ssr: true,
+      mode: "builder",
       editButton: {
         enable: true,
         position: "top-right",
