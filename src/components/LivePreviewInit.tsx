@@ -21,10 +21,6 @@ const REGION_HOST: Record<string, string> = {
  */
 export default function LivePreviewInit() {
   useEffect(() => {
-    // Only initialise inside the CMS preview iframe
-    const params = new URLSearchParams(window.location.search);
-    if (!params.has("live_preview")) return;
-
     const region = (process.env.NEXT_PUBLIC_CONTENTSTACK_REGION ?? "us").toLowerCase();
 
     ContentstackLivePreview.init({
@@ -34,7 +30,6 @@ export default function LivePreviewInit() {
       editButton: {
         enable: true,
         position: "top-right",
-        includeByQueryParameter: true,
       },
       stackDetails: {
         apiKey: process.env.NEXT_PUBLIC_CONTENTSTACK_API_KEY!,
