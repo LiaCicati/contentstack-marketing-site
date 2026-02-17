@@ -5,7 +5,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getPageByUrl, getLayoutData } from "@/lib/api";
-import LivePreviewPage from "@/components/LivePreviewPage";
+import SectionRenderer from "@/components/sections/SectionRenderer";
 import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
 import LivePreviewInit from "@/components/LivePreviewInit";
@@ -49,12 +49,7 @@ export default async function HomePage({ searchParams }: PageProps) {
           />
         )}
         <main className="flex-1">
-          <LivePreviewPage
-            initialSections={page.sections}
-            initialEditTags={page.$}
-            url="/"
-            locale={DEFAULT_LOCALE}
-          />
+          <SectionRenderer sections={page.sections} editTags={page.$} />
         </main>
         {settings && <Footer settings={settings} />}
         <LivePreviewInit />

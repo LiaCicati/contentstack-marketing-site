@@ -87,7 +87,4 @@ export default stack;
 
 // ── Re-export constants for client components ───────────────
 
-export { apiKey, deliveryToken, environment, previewToken, regionStr, region };
-
-// ── Preview host (re-export for client) ─────────────────────
-export { previewHost };
+export { apiKey, environment, regionStr };
