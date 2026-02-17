@@ -93,7 +93,6 @@ export default async function LocaleSlugPage({ params, searchParams }: PageProps
     url = `/${localeParam}/${slug.join("/")}`;
   }
 
-  const isPreview = !!sp?.live_preview;
   const [page, { settings, navigation }] = await Promise.all([
     getPageByUrl(url, locale, sp),
     getLayoutData(locale, sp),
@@ -114,7 +113,7 @@ export default async function LocaleSlugPage({ params, searchParams }: PageProps
         <SectionRenderer sections={page.sections} editTags={page.$} />
       </main>
       {settings && <Footer settings={settings} />}
-      {isPreview && <LivePreviewInit />}
+      <LivePreviewInit />
     </>
   );
 }

@@ -16,6 +16,12 @@ const REGION_HOST: Record<string, string> = {
  * communication channel between Contentstack UI and the
  * preview iframe.
  *
+ * Always rendered on every page so the SDK is available when
+ * the CMS opens the site in its preview iframe. The SDK
+ * detects whether it's inside the CMS and only activates
+ * edit features there (cleanCslpOnProduction strips
+ * data-cslp attributes on the public site).
+ *
  * In SSR mode the SDK reloads the page on every content
  * change so the server component re-fetches fresh data.
  */
@@ -30,6 +36,7 @@ export default function LivePreviewInit() {
       editButton: {
         enable: true,
         position: "top-right",
+        includeByQueryParameter: true,
       },
       stackDetails: {
         apiKey: process.env.NEXT_PUBLIC_CONTENTSTACK_API_KEY!,

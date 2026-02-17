@@ -90,7 +90,7 @@ export async function getPageByUrl(
 
     const entries = (result.entries ?? []) as unknown as Page[];
     const page = entries[0] ?? null;
-    if (page && isPreview(searchParams)) {
+    if (page) {
       addEditableTags(page, "page", true, locale);
       tagReferencedEntries(page, locale);
     }
@@ -142,7 +142,7 @@ export async function getNavigation(
 
     const entries = (result.entries ?? []) as unknown as Navigation[];
     const nav = entries[0] ?? null;
-    if (nav && isPreview(searchParams)) {
+    if (nav) {
       addEditableTags(nav, "navigation", true, locale);
     }
     return nav;
@@ -171,7 +171,7 @@ export async function getSiteSettings(
 
     const entries = (result.entries ?? []) as unknown as SiteSettings[];
     const settings = entries[0] ?? null;
-    if (settings && isPreview(searchParams)) {
+    if (settings) {
       addEditableTags(settings, "site_settings", true, locale);
     }
     return settings;
