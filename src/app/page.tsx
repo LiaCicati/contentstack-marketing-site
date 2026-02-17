@@ -39,22 +39,20 @@ export default async function HomePage({ searchParams }: PageProps) {
   if (!page) notFound();
 
   return (
-    <html lang="en">
-      <body className="flex min-h-screen flex-col">
-        {navigation && settings && (
-          <Navigation
-            navigation={navigation}
-            siteName={settings.site_name}
-            logo={settings.logo}
-            locale={DEFAULT_LOCALE}
-          />
-        )}
-        <main className="flex-1">
-          <SectionRenderer sections={page.sections} editTags={page.$} />
-        </main>
-        {settings && <Footer settings={settings} />}
-        {isPreview && <LivePreviewInit />}
-      </body>
-    </html>
+    <>
+      {navigation && settings && (
+        <Navigation
+          navigation={navigation}
+          siteName={settings.site_name}
+          logo={settings.logo}
+          locale={DEFAULT_LOCALE}
+        />
+      )}
+      <main className="flex-1">
+        <SectionRenderer sections={page.sections} editTags={page.$} />
+      </main>
+      {settings && <Footer settings={settings} />}
+      {isPreview && <LivePreviewInit />}
+    </>
   );
 }

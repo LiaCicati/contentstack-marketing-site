@@ -10,8 +10,10 @@
 
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { getPageByUrl, getAllPageUrls } from "@/lib/api";
+import { getPageByUrl, getAllPageUrls, getLayoutData } from "@/lib/api";
 import SectionRenderer from "@/components/sections/SectionRenderer";
+import Navigation from "@/components/layout/Navigation";
+import Footer from "@/components/layout/Footer";
 import LivePreviewInit from "@/components/LivePreviewInit";
 import { isValidLocale, DEFAULT_LOCALE, LOCALES, type Locale } from "@/lib/i18n";
 
@@ -92,12 +94,26 @@ export default async function LocaleSlugPage({ params, searchParams }: PageProps
   }
 
   const isPreview = !!sp?.live_preview;
-  const page = await getPageByUrl(url, locale, sp);
+  const [page, { settings, navigation }] = await Promise.all([
+    getPageByUrl(url, locale, sp),
+    getLayoutData(locale, sp),
+  ]);
   if (!page) notFound();
 
   return (
     <>
-      <SectionRenderer sections={page.sections} editTags={page.$} />
+      {navigation && settings && (
+        <Navigation
+          navigation={navigation}
+          siteName={settings.site_name}
+          logo={settings.logo}
+          locale={locale}
+        />
+      )}
+      <main className="flex-1">
+        <SectionRenderer sections={page.sections} editTags={page.$} />
+      </main>
+      {settings && <Footer settings={settings} />}
       {isPreview && <LivePreviewInit />}
     </>
   );
