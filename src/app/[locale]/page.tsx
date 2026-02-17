@@ -13,6 +13,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getPageByUrl, getAllPageUrls } from "@/lib/api";
 import SectionRenderer from "@/components/sections/SectionRenderer";
+import LivePreviewInit from "@/components/LivePreviewInit";
 import { isValidLocale, DEFAULT_LOCALE, LOCALES, type Locale } from "@/lib/i18n";
 
 export const revalidate = 60;
@@ -86,8 +87,14 @@ export default async function LocalePage({ params, searchParams }: PageProps) {
     url = `/${localeParam}`;
   }
 
+  const isPreview = !!sp?.live_preview;
   const page = await getPageByUrl(url, locale, sp);
   if (!page) notFound();
 
-  return <SectionRenderer sections={page.sections} editTags={page.$} />;
+  return (
+    <>
+      <SectionRenderer sections={page.sections} editTags={page.$} />
+      {isPreview && <LivePreviewInit />}
+    </>
+  );
 }

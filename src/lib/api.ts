@@ -61,7 +61,7 @@ export async function getPageByUrl(
 
     const entries = (result.entries ?? []) as unknown as Page[];
     const page = entries[0] ?? null;
-    if (page) {
+    if (page && searchParams?.live_preview) {
       addEditableTags(page, "page", true, locale);
     }
     return page;

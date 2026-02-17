@@ -30,6 +30,7 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
 
 export default async function HomePage({ searchParams }: PageProps) {
   const sp = await searchParams;
+  const isPreview = !!sp?.live_preview;
   const [page, { settings, navigation }] = await Promise.all([
     getPageByUrl("/", DEFAULT_LOCALE, sp),
     getLayoutData(DEFAULT_LOCALE, sp),
@@ -52,7 +53,7 @@ export default async function HomePage({ searchParams }: PageProps) {
           <SectionRenderer sections={page.sections} editTags={page.$} />
         </main>
         {settings && <Footer settings={settings} />}
-        <LivePreviewInit />
+        {isPreview && <LivePreviewInit />}
       </body>
     </html>
   );
