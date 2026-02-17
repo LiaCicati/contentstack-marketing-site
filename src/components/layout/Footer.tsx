@@ -11,7 +11,7 @@ export default function Footer({ settings }: Props) {
     <footer className="border-t border-gray-200 bg-gray-50 px-6 py-10">
       <div className="mx-auto max-w-7xl flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
         {/* Copyright */}
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-gray-500" {...footer?.$?.copyright_text}>
           {footer?.copyright_text ?? `\u00a9 ${new Date().getFullYear()} ${settings.site_name}`}
         </p>
 

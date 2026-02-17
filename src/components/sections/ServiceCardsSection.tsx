@@ -27,11 +27,11 @@ export default function ServiceCardsSection({ data }: Props) {
                   className="mb-5"
                 />
               )}
-              <h3 className="text-lg font-semibold text-gray-900">
+              <h3 className="text-lg font-semibold text-gray-900" {...card.$?.title}>
                 {card.title}
               </h3>
               {card.description && (
-                <p className="mt-3 text-gray-600 leading-relaxed">
+                <p className="mt-3 text-gray-600 leading-relaxed" {...card.$?.description}>
                   {card.description}
                 </p>
               )}

@@ -44,6 +44,7 @@ export interface Testimonial {
   author_title?: string;
   company?: string;
   avatar?: CmsAsset;
+  $?: EditTags;
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -54,6 +55,7 @@ export interface ServiceCard {
   title: string;
   description?: string;
   icon?: CmsAsset;
+  $?: EditTags;
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -173,6 +175,7 @@ export interface NavChild {
   label: string;
   page_reference?: Page[] | CmsReference[];
   external_url?: CmsLink | null;
+  $?: EditTags;
 }
 
 export interface NavItem {
@@ -180,12 +183,14 @@ export interface NavItem {
   page_reference?: Page[] | CmsReference[];
   external_url?: CmsLink | null;
   children?: NavChild[];
+  $?: EditTags;
 }
 
 export interface Navigation {
   uid: string;
   title: string;
   nav_items: NavItem[];
+  $?: EditTags;
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -206,7 +211,9 @@ export interface SiteSettings {
   footer?: {
     copyright_text?: string;
     social_links?: SocialLink[];
+    $?: EditTags;
   };
+  $?: EditTags;
 }
 
 // ─────────────────────────────────────────────────────────────

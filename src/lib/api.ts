@@ -11,13 +11,42 @@ import { QueryOperation } from "@contentstack/delivery-sdk";
 import { addEditableTags } from "@contentstack/utils";
 import type {
   Page,
+  PageSection,
   Navigation,
   SiteSettings,
+  TestimonialsSection,
+  ServiceCardsSection,
 } from "@/types/contentstack";
 import { DEFAULT_LOCALE, type Locale } from "./i18n";
 
 // ── Search params type ────────────────────────────────────────
 type SearchParams = { [key: string]: string | string[] | undefined };
+
+function isPreview(sp?: SearchParams): boolean {
+  return !!sp?.live_preview;
+}
+
+/**
+ * Tag referenced entries inside page sections (testimonials, service cards).
+ * These are separate content types so they need their own addEditableTags call.
+ */
+function tagReferencedEntries(page: Page, locale: string) {
+  for (const section of page.sections) {
+    const key = Object.keys(section)[0];
+    const data = (section as Record<string, unknown>)[key];
+    if (key === "testimonials") {
+      const ts = data as TestimonialsSection;
+      ts.testimonial_entries?.forEach((t) => {
+        addEditableTags(t, "testimonial", true, locale);
+      });
+    } else if (key === "service_cards") {
+      const sc = data as ServiceCardsSection;
+      sc.cards?.forEach((c) => {
+        addEditableTags(c, "service_card", true, locale);
+      });
+    }
+  }
+}
 
 /**
  * Returns a stack instance configured for the current request.
@@ -61,8 +90,9 @@ export async function getPageByUrl(
 
     const entries = (result.entries ?? []) as unknown as Page[];
     const page = entries[0] ?? null;
-    if (page && searchParams?.live_preview) {
+    if (page && isPreview(searchParams)) {
       addEditableTags(page, "page", true, locale);
+      tagReferencedEntries(page, locale);
     }
     return page;
   } catch {
@@ -111,7 +141,11 @@ export async function getNavigation(
       .find();
 
     const entries = (result.entries ?? []) as unknown as Navigation[];
-    return entries[0] ?? null;
+    const nav = entries[0] ?? null;
+    if (nav && isPreview(searchParams)) {
+      addEditableTags(nav, "navigation", true, locale);
+    }
+    return nav;
   } catch {
     return null;
   }
@@ -136,7 +170,11 @@ export async function getSiteSettings(
       .find();
 
     const entries = (result.entries ?? []) as unknown as SiteSettings[];
-    return entries[0] ?? null;
+    const settings = entries[0] ?? null;
+    if (settings && isPreview(searchParams)) {
+      addEditableTags(settings, "site_settings", true, locale);
+    }
+    return settings;
   } catch {
     return null;
   }

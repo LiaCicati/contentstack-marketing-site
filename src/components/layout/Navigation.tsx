@@ -81,6 +81,7 @@ export default function Navigation({ navigation, siteName, logo, locale }: Props
                       rel: "noopener noreferrer",
                     })}
                     className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors"
+                    {...item.$?.label}
                   >
                     {item.label}
                     {hasChildren && (
@@ -103,6 +104,7 @@ export default function Navigation({ navigation, siteName, logo, locale }: Props
                                 rel: "noopener noreferrer",
                               })}
                               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+                              {...child.$?.label}
                             >
                               {child.label}
                             </Link>

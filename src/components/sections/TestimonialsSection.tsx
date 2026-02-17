@@ -21,7 +21,7 @@ export default function TestimonialsSection({ data }: Props) {
               key={t.uid}
               className="flex flex-col rounded-xl bg-white p-8 shadow-sm ring-1 ring-gray-100"
             >
-              <p className="flex-1 text-gray-700 leading-relaxed italic">
+              <p className="flex-1 text-gray-700 leading-relaxed italic" {...t.$?.quote}>
                 &ldquo;{t.quote}&rdquo;
               </p>
 
@@ -36,11 +36,11 @@ export default function TestimonialsSection({ data }: Props) {
                   />
                 )}
                 <div>
-                  <p className="text-sm font-semibold text-gray-900">
+                  <p className="text-sm font-semibold text-gray-900" {...t.$?.author_name}>
                     {t.author_name}
                   </p>
                   {(t.author_title || t.company) && (
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-gray-500" {...t.$?.author_title}>
                       {[t.author_title, t.company]
                         .filter(Boolean)
                         .join(", ")}
