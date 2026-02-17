@@ -12,7 +12,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getPageByUrl, getAllPageUrls } from "@/lib/api";
-import SectionRenderer from "@/components/sections/SectionRenderer";
+import LivePreviewPage from "@/components/LivePreviewPage";
 import { isValidLocale, DEFAULT_LOCALE, LOCALES, type Locale } from "@/lib/i18n";
 
 export const revalidate = 60;
@@ -89,5 +89,12 @@ export default async function LocalePage({ params, searchParams }: PageProps) {
   const page = await getPageByUrl(url, locale, sp);
   if (!page) notFound();
 
-  return <SectionRenderer sections={page.sections} editTags={page.$} />;
+  return (
+    <LivePreviewPage
+      initialSections={page.sections}
+      initialEditTags={page.$}
+      url={url}
+      locale={locale}
+    />
+  );
 }
