@@ -24,11 +24,17 @@ export default function FeatureGridSection({ data }: Props) {
                   className="mb-4"
                 />
               )}
-              <h3 className="text-lg font-semibold text-gray-900">
+              <h3
+                className="text-lg font-semibold text-gray-900"
+                {...feature.$?.title}
+              >
                 {feature.title}
               </h3>
               {feature.description && (
-                <p className="mt-2 text-gray-600 leading-relaxed">
+                <p
+                  className="mt-2 text-gray-600 leading-relaxed"
+                  {...feature.$?.description}
+                >
                   {feature.description}
                 </p>
               )}

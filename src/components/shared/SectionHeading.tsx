@@ -23,11 +23,17 @@ export default function SectionHeading({
 
   return (
     <>
-      <Tag className={`${headingClassName} ${center ? "text-center" : ""}`}>
+      <Tag
+        className={`${headingClassName} ${center ? "text-center" : ""}`}
+        {...data.$?.heading}
+      >
         {data.heading}
       </Tag>
       {data.subheading && (
-        <p className={`${subheadingClassName} ${center ? "text-center" : ""}`}>
+        <p
+          className={`${subheadingClassName} ${center ? "text-center" : ""}`}
+          {...data.$?.subheading}
+        >
           {data.subheading}
         </p>
       )}

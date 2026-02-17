@@ -8,6 +8,7 @@
 
 import stack, { createStack } from "./contentstack-client";
 import { QueryOperation } from "@contentstack/delivery-sdk";
+import { addEditableTags } from "@contentstack/utils";
 import type {
   Page,
   Navigation,
@@ -59,7 +60,11 @@ export async function getPageByUrl(
       .find();
 
     const entries = (result.entries ?? []) as unknown as Page[];
-    return entries[0] ?? null;
+    const page = entries[0] ?? null;
+    if (page) {
+      addEditableTags(page, "page", true, locale);
+    }
+    return page;
   } catch {
     return null;
   }

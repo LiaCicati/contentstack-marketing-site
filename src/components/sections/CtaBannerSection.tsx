@@ -16,7 +16,9 @@ export default function CtaBannerSection({ data }: Props) {
         />
 
         {data.body_text && (
-          <p className="mt-4 text-lg text-brand-100">{data.body_text}</p>
+          <p className="mt-4 text-lg text-brand-100" {...data.$?.body_text}>
+            {data.body_text}
+          </p>
         )}
 
         <div className="mt-8 flex flex-wrap justify-center gap-4">

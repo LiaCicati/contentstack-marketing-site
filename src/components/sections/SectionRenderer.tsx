@@ -16,6 +16,7 @@
 
 import type {
   PageSection,
+  EditTags,
   HeroSection as HeroData,
   FeatureGridSection as FeatureGridData,
   CtaBannerSection as CtaBannerData,
@@ -34,6 +35,7 @@ import ServiceCardsSection from "./ServiceCardsSection";
 
 // ── Block-type → Component registry ─────────────────────────
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const SECTION_COMPONENTS: Record<string, React.ComponentType<{ data: any }>> = {
   hero: HeroSection,
   feature_grid: FeatureGridSection,
@@ -48,9 +50,11 @@ const SECTION_COMPONENTS: Record<string, React.ComponentType<{ data: any }>> = {
 
 interface Props {
   sections: PageSection[];
+  /** The page-level `$` edit tags from addEditableTags() */
+  editTags?: EditTags;
 }
 
-export default function SectionRenderer({ sections }: Props) {
+export default function SectionRenderer({ sections, editTags }: Props) {
   return (
     <>
       {sections.map((section, index) => {
@@ -69,7 +73,14 @@ export default function SectionRenderer({ sections }: Props) {
           return null;
         }
 
-        return <Component key={`${blockType}-${index}`} data={blockData} />;
+        // Block-level edit tag: allows editors to click on the section block
+        const blockTag = editTags?.[`sections__${index}`];
+
+        return (
+          <div key={`${blockType}-${index}`} {...blockTag}>
+            <Component data={blockData} />
+          </div>
+        );
       })}
     </>
   );

@@ -93,5 +93,5 @@ export default async function LocaleSlugPage({ params, searchParams }: PageProps
   const page = await getPageByUrl(url, locale, sp);
   if (!page) notFound();
 
-  return <SectionRenderer sections={page.sections} />;
+  return <SectionRenderer sections={page.sections} editTags={page.$} />;
 }

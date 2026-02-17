@@ -10,7 +10,10 @@ export default function LogoStripSection({ data }: Props) {
     <section className="px-6 py-16 bg-gray-50">
       <div className="mx-auto max-w-6xl">
         {data.section_header?.heading && (
-          <p className="text-center text-sm font-semibold uppercase tracking-wider text-gray-500 mb-8">
+          <p
+            className="text-center text-sm font-semibold uppercase tracking-wider text-gray-500 mb-8"
+            {...data.section_header.$?.heading}
+          >
             {data.section_header.heading}
           </p>
         )}

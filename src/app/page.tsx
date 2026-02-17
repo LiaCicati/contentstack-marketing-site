@@ -49,7 +49,7 @@ export default async function HomePage({ searchParams }: PageProps) {
           />
         )}
         <main className="flex-1">
-          <SectionRenderer sections={page.sections} />
+          <SectionRenderer sections={page.sections} editTags={page.$} />
         </main>
         {settings && <Footer settings={settings} />}
         <LivePreviewInit />

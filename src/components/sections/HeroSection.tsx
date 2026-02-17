@@ -25,6 +25,7 @@ export default function HeroSection({ data }: Props) {
           className={`text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl ${
             data.background_image ? "text-white" : "text-gray-900"
           }`}
+          {...data.$?.headline}
         >
           {data.headline}
         </h1>
@@ -34,6 +35,7 @@ export default function HeroSection({ data }: Props) {
             className={`mt-6 text-lg leading-8 ${
               data.background_image ? "text-gray-200" : "text-gray-600"
             }`}
+            {...data.$?.sub_headline}
           >
             {data.sub_headline}
           </p>

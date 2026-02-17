@@ -5,6 +5,12 @@
 // Content Management API or a code-gen tool.
 // ─────────────────────────────────────────────────────────────
 
+/** Edit tag object injected by addEditableTags() from @contentstack/utils */
+export type CslpTag = { "data-cslp": string };
+
+/** The `$` object added to entries/fields by addEditableTags() */
+export type EditTags = Record<string, CslpTag>;
+
 /** Contentstack asset (image / file) */
 export interface CmsAsset {
   uid: string;
@@ -12,6 +18,7 @@ export interface CmsAsset {
   filename: string;
   title?: string;
   content_type?: string;
+  $?: EditTags;
 }
 
 /** Contentstack link field */
@@ -57,12 +64,14 @@ export interface ServiceCard {
 export interface SectionHeader {
   heading?: string;
   subheading?: string;
+  $?: EditTags;
 }
 
 /** Matches the cta_button global field */
 export interface CtaButton {
   label?: string;
   url?: CmsLink;
+  $?: EditTags;
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -74,17 +83,20 @@ export interface HeroSection {
   sub_headline?: string;
   background_image?: CmsAsset;
   cta?: CtaButton;
+  $?: EditTags;
 }
 
 export interface Feature {
   title: string;
   description?: string;
   icon?: CmsAsset;
+  $?: EditTags;
 }
 
 export interface FeatureGridSection {
   section_header?: SectionHeader;
   features: Feature[];
+  $?: EditTags;
 }
 
 export interface CtaBannerSection {
@@ -92,28 +104,33 @@ export interface CtaBannerSection {
   body_text?: string;
   primary_cta?: CtaButton;
   secondary_cta?: CtaButton;
+  $?: EditTags;
 }
 
 export interface TestimonialsSection {
   section_header?: SectionHeader;
   /** After .includeReference() these are resolved Testimonial objects */
   testimonial_entries: Testimonial[];
+  $?: EditTags;
 }
 
 export interface RichTextBlockSection {
   section_header?: SectionHeader;
   body: Record<string, unknown>; // Contentstack JSON RTE
+  $?: EditTags;
 }
 
 export interface LogoStripSection {
   section_header?: SectionHeader;
   logos: CmsAsset[];
+  $?: EditTags;
 }
 
 export interface ServiceCardsSection {
   section_header?: SectionHeader;
   /** After .includeReference() these are resolved ServiceCard objects */
   cards: ServiceCard[];
+  $?: EditTags;
 }
 
 /**
@@ -145,6 +162,7 @@ export interface Page {
   url: string;
   seo?: PageSeo;
   sections: PageSection[];
+  $?: EditTags;
 }
 
 // ─────────────────────────────────────────────────────────────

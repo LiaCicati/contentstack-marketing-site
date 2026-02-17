@@ -45,7 +45,9 @@ export default function RichTextBlockSection({ data }: Props) {
           data={data.section_header}
           center={false}
         />
-        {data.body && renderRteNode(data.body as Record<string, unknown>, 0)}
+        <div {...data.$?.body}>
+          {data.body && renderRteNode(data.body as Record<string, unknown>, 0)}
+        </div>
       </div>
     </section>
   );
