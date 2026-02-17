@@ -27,6 +27,28 @@ function isPreview(sp?: SearchParams): boolean {
 }
 
 /**
+ * Extract the variant aliases string from searchParams.
+ * The Personalize Edge SDK middleware sets this as
+ * `searchParams[Personalize.VARIANT_QUERY_PARAM]`.
+ * The param name is "personalize_variants".
+ */
+function getVariantAliases(sp?: SearchParams): string | undefined {
+  const raw = sp?.personalize_variants;
+  if (!raw) return undefined;
+  const decoded = decodeURIComponent(Array.isArray(raw) ? raw[0] : raw);
+  // The SDK stores variant aliases in the format "expShortUid=variantAlias,..."
+  // We need to extract just the variant alias values for the .variants() call
+  const aliases = decoded
+    .split(",")
+    .map((pair) => {
+      const parts = pair.split("=");
+      return parts.length === 2 ? parts[1] : pair;
+    })
+    .filter(Boolean);
+  return aliases.length > 0 ? aliases.join(",") : undefined;
+}
+
+/**
  * Tag referenced entries inside page sections (testimonials, service cards).
  * These are separate content types so they need their own addEditableTags call.
  */
@@ -76,14 +98,23 @@ export async function getPageByUrl(
 ): Promise<Page | null> {
   try {
     const s = getStack(searchParams);
-    const result = await s
+    const variantAliases = getVariantAliases(searchParams);
+
+    let query = s
       .contentType("page")
       .entry()
       .locale(locale)
       .includeReference(
         "sections.testimonials.testimonial_entries",
         "sections.service_cards.cards",
-      )
+      );
+
+    // Apply variant aliases when Personalize assigns a variant
+    if (variantAliases) {
+      query = query.variants(variantAliases);
+    }
+
+    const result = await query
       .query()
       .where("url", QueryOperation.EQUALS, url)
       .find();

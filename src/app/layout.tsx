@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PersonalizeProvider } from "@/components/context/PersonalizeContext";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -13,7 +14,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="flex min-h-screen flex-col">{children}</body>
+      <body className="flex min-h-screen flex-col">
+        <PersonalizeProvider>{children}</PersonalizeProvider>
+      </body>
     </html>
   );
 }
